@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { PieChart, Pie, Tooltip, } from 'recharts';
 
-export class PieCryptoChart extends PureComponent {
+export class PieChartBlock extends PureComponent {
     static jsfiddleUrl = 'https://jsfiddle.net/alidingling/k9jkog04/';
 
     render() {

@@ -6,8 +6,8 @@ import { PortfolioPage } from "./CryptoPortfolioPage/index"
 import { ExchangePage } from "./ExchangePage/index"
 
 class App extends React.Component {
-
     render() {
+
         const portfolio = {
             BTC: 1234.78,
             ETH: 3128.50,

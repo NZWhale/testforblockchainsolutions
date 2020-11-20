@@ -1,6 +1,6 @@
 import React from 'react';
 import { CurrencyBlock } from "./CurrencyBlock"
-import { PieCryptoChart } from "./PieCryptoChart"
+import { PieChartBlock } from "./PieChartBlock"
 import {ChangePageButton} from "../ChangePageButton"
  
 
@@ -12,7 +12,7 @@ export class PortfolioPage extends React.Component {
             <div className="container-fluid">
                 <ChangePageButton />
                 <CurrencyBlock portfolio={portfolio} />
-                <PieCryptoChart portfolio={portfolio} />
+                <PieChartBlock portfolio={portfolio} />
             </div>
         )
     }
