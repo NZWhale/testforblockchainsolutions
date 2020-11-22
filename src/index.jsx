@@ -16,8 +16,8 @@ class App extends React.Component {
     render() {
         return (
             <>
-                {/* <ExchangePage portfolio={portfolio}/> */}
-                <PortfolioPage portfolio={portfolio}/>
+                <ExchangePage />
+                {/* <PortfolioPage /> */}
             </>
         )
     }

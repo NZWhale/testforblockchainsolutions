@@ -13,7 +13,7 @@ export class ExchangePage extends React.Component {
             })}>
                 <ChangePageButton />
                 <ExchangeBlock portfolio={portfolio} />
-                <ChartBlock portfolio={portfolio} />
+                {/* <ChartBlock portfolio={portfolio} /> */}
             </div>
         )
     }

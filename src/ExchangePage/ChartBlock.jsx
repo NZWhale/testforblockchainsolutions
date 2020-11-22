@@ -1,14 +1,6 @@
 import React, { useState } from 'react';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Legend, Tooltip, } from 'recharts';
 
-// async function getBitcoinPriceForToWeeks() {
-//     const bitcoinChart = await fetch("https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=14").then(response => response.json())
-//     return bitcoinChart
-// }
-// async function getEthereumPriceForToWeeks() {
-//     const ethereumChart = await fetch("https://api.coingecko.com/api/v3/coins/ethereum/market_chart?vs_currency=usd&days=14").then(response => response.json())
-//     return ethereumChart
-// }
 export class ChartBlock extends React.Component {
     render() {
         const data1 =

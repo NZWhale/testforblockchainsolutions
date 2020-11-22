@@ -31,24 +31,7 @@ export class PieChartBlock extends PureComponent {
         })})
     }
     componentWillMount() {
-        this.getBtcAmountInUsd()
-        .then(() => this.getEthAmountInUsd())
-        .then(() => {this.setState({
-            data: [
-                {
-                    "name": "BTC",
-                    "value": this.state.btcInUsd
-                },
-                {
-                    "name": "ETH",
-                    "value": this.state.ethInUsd
-                },
-                {
-                    "name": "USD",
-                    "value": this.portfolioInstance.getCurrencyInUsd("USD")
-                }
-            ]
-        })})
+        
     }
 
     static jsfiddleUrl = 'https://jsfiddle.net/alidingling/k9jkog04/';
