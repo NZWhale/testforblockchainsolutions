@@ -1,5 +1,5 @@
 export class PortfolioState {
-    private BTC:number = 12
+    private BTC:number = 3
     private ETH: number = 221
     private USD: number = 40312
     private total: number = 0
@@ -31,27 +31,26 @@ export class PortfolioState {
         this.total = (this.BTC * btcPrice) + (this.ETH * ethPrice) + this.USD
     }
     async setBtcPrice(){
-        // this.btcPrice = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd").then(response => response.json())
-        const resp = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd")
-        const { BTC } = await resp.json();
-        this.btcPrice = BTC
+        const resp = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd").then(response => response.json())
+        const bitcoinPrice = resp.bitcoin.usd;
+        this.btcPrice = bitcoinPrice
     }
     async setEthPrice(){
-        const resp = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd")
-        const { ETH } = await resp.json()
-        this.ethPrice = ETH
+        const resp = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd").then(response => response.json())
+        const ethereumPrice = resp.ethereum.usd
+        this.ethPrice = ethereumPrice
 
     }
-    getAmount(currency: any) {
+    getAmount(currency: string) {
         if(currency === "BTC") return this.BTC
         if(currency === "ETH") return this.ETH
         if(currency === "USD") return this.USD
+        return 1
     }
-    getEthAmount() {
-        return this.ETH
-    }
-    getUsdAmount() {
-        return this.USD
+    getCurrencyInUsd(currency: any) {
+        if(currency === "BTC") return (this.BTC*this.btcPrice)
+        if(currency === "ETH") return (this.ETH*this.ethPrice)
+        if(currency === "USD") return this.USD
     }
     getTotalAmount() {
         return this.total

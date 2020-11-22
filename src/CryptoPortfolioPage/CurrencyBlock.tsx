@@ -26,12 +26,6 @@ export default class Portfolio extends React.Component {
     }
 
 }
-const onTopUp = () => {
-
-}
-const onWithdraw = () => {
-
-}
 
 type Currency = "BTC" | "ETH" | "USD"
 
@@ -48,10 +42,8 @@ const Button = ({ onClick, label, buttonType }: ButtonProps) => (
 
 interface CurrencyBlockProps {
     currency: Currency;
-    amount: number | undefined;
+    amount: number;
     portfolioInstance: PortfolioState
-    // onTopUp: (amount: number) => void;
-    // onWithdraw: (amount: number) => void;
 }
 
 const returnIcon = (currency: Currency) => {
