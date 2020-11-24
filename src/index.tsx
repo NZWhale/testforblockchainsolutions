@@ -36,4 +36,4 @@ class App extends React.Component {
 }
 
 
-render(<App portfolio={portfolio} />, document.getElementById("root"))
+render(<App />, document.getElementById("root"))
