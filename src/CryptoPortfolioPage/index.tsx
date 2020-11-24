@@ -1,7 +1,6 @@
 import React from 'react';
 import Portfolio from "./CurrencyBlock"
 import {style} from "typestyle"
-import { TotalAmount } from "./TotalAmount"
 
 
 export class PortfolioPage extends React.Component {

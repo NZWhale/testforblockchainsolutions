@@ -60,14 +60,14 @@ const ethIconUrl = "src/images/ethereum.png"
 const dollarIconUrl = "src/images/262280.svg"
 
 const addNewAmount = (currency: Currency, amount: string, portfolioInstance: PortfolioState) => {
-    if (currency === "BTC") portfolioInstance.addBtcAmount(parseInt(amount, 10))
-    if (currency === "ETH") portfolioInstance.addEthAmount(parseInt(amount, 10))
-    if (currency === "USD") portfolioInstance.addUsdAmount(parseInt(amount, 10))
+    if (currency === "BTC") portfolioInstance.addBtcAmount(parseFloat(amount))
+    if (currency === "ETH") portfolioInstance.addEthAmount(parseFloat(amount))
+    if (currency === "USD") portfolioInstance.addUsdAmount(parseFloat(amount))
 }
 const minusAmount = (currency: Currency, amount: string, portfolioInstance: PortfolioState) => {
-    if (currency === "BTC") portfolioInstance.minusBtcAmount(parseInt(amount, 10))
-    if (currency === "ETH") portfolioInstance.minusEthAmount(parseInt(amount, 10))
-    if (currency === "USD") portfolioInstance.minusUsdAmount(parseInt(amount, 10))
+    if (currency === "BTC") portfolioInstance.minusBtcAmount(parseFloat(amount))
+    if (currency === "ETH") portfolioInstance.minusEthAmount(parseFloat(amount))
+    if (currency === "USD") portfolioInstance.minusUsdAmount(parseFloat(amount))
 }
 
 class CurrencyBlock extends React.Component {
@@ -139,14 +139,14 @@ class CurrencyBlock extends React.Component {
                 </div>
 
                 {isWithdrawOpen &&
-                    <div className={style({ width: "90%" })}>
+                    <div className={style({ width: "90%", display: "flex" })}>
                         <input type="text" onChange={(e) => {
                             this.setState({
                                 withdrawValue: e.target.value
                             })
                         }} />
-                        <div className="">
-                            <span className=""><img className={style({ height: "24px" })} src={returnIcon(this.props.currency)} alt="" /></span>
+                        <div >
+                            <span ><img className={style({ height: "24px", marginRight:"12px" })} src={returnIcon(this.props.currency)} alt="" /></span>
                             <Button onClick={() => {
                                 minusAmount(this.props.currency, this.state.withdrawValue, this.props.portfolioInstance)
                                 this.setState({
@@ -154,19 +154,19 @@ class CurrencyBlock extends React.Component {
                                     isWithdrawOpen: false
                                 })
                             }
-                            } label="confirm withdraw" />
+                            } label="confirm" />
                         </div>
                     </div>
                 }
                 { isTopupOpen &&
-                    <div className={style({ width: "90%" })}>
+                    <div className={style({ width: "90%", display: "flex"})}>
                         <input type="text" onChange={(e) => {
                             this.setState({
                                 topupValue: e.target.value
                             })
                         }} />
                         <div className="">
-                            <span className=""><img className={style({ height: "24px" })} src={returnIcon(this.props.currency)} alt="" /></span>
+                            <span ><img className={style({ height: "24px", marginRight:"12px" })} src={returnIcon(this.props.currency)} alt="" /></span>
                             <Button onClick={() => {
                                 addNewAmount(this.props.currency, this.state.topupValue, this.props.portfolioInstance)
                                 this.setState({

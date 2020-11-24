@@ -84,25 +84,32 @@ class InputGroup extends React.Component {
             if (this.portfolio.getAmount("BTC") > 0) {
                 if (this.state.currencyTo === "ETH") this.portfolio.addEthAmount(this.state.amountTo)
                 if (this.state.currencyTo === "USD") this.portfolio.addUsdAmount(this.state.amountTo)
+                this.setState({ amountFrom: 0 })
+                this.setState({ amountTo: 0 })
             }
-
         } else if (this.state.currencyFrom === "ETH") {
             this.portfolio.minusEthAmount(this.state.amountFrom)
             if (this.portfolio.getAmount("ETH") > 0) {
                 if (this.state.currencyTo === "BTC") this.portfolio.addBtcAmount(this.state.amountTo)
                 if (this.state.currencyTo === "ETH") this.portfolio.addEthAmount(this.state.amountTo)
+                this.setState({ amountFrom: 0 })
+                this.setState({ amountTo: 0 })
             }
         } else if (this.state.currencyFrom === "USD") {
             if (this.state.currencyTo === "BTC") {
                 if (this.portfolio.getAmount("USD") / this.state.btcRate > 1) {
                     this.portfolio.minusUsdAmount(this.state.amountFrom)
                     this.portfolio.addBtcAmount(this.state.amountTo)
-                } else {alert("Not enough funds")}
+                    this.setState({ amountFrom: 0 })
+                    this.setState({ amountTo: 0 })
+                } else { alert("Not enough funds") }
             } else if (this.state.currencyTo === "ETH") {
                 if (this.portfolio.getAmount("USD") / this.state.ethRate > 1) {
                     this.portfolio.addEthAmount(this.state.amountTo)
                     this.portfolio.minusUsdAmount(this.state.amountFrom)
-                } else {alert("Not enough funds")}
+                    this.setState({ amountFrom: 0 })
+                    this.setState({ amountTo: 0 })
+                } else { alert("Not enough funds") }
             }
         }
     }
@@ -116,10 +123,10 @@ class InputGroup extends React.Component {
     updateCurrencyRate() {
         fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd")
             .then(response => response.json())
-            .then((data) => { this.setState({ btcRate: parseInt(data.bitcoin.usd, 10) }) })
+            .then((data) => { this.setState({ btcRate: parseFloat(data.bitcoin.usd) }) })
         fetch("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd")
             .then(response => response.json())
-            .then((data) => { this.setState({ ethRate: parseInt(data.ethereum.usd, 10) }) })
+            .then((data) => { this.setState({ ethRate: parseFloat(data.ethereum.usd) }) })
     }
 
     setCurrencyAndIconState = (currency: Currency, typeOfInput: string) => {
@@ -211,10 +218,12 @@ class InputGroup extends React.Component {
                         currency={this.state.currencyFrom}
                         amount={this.state.amountFrom}
                         setFromFormState={() => {
+                            if (this.state.isToCurrencyFormOpen) this.setState({ isToCurrencyFormOpen: false })
                             this.setState({ isFromCurrencyFormOpen: !this.state.isFromCurrencyFormOpen })
                             console.log(this.state.isFromCurrencyFormOpen)
                         }}
                         setToFormState={() => {
+                            if (this.state.isFromCurrencyFormOpen) this.setState({ isFromCurrencyFormOpen: false })
                             this.setState({ isToCurrencyFormOpen: !this.state.isToCurrencyFormOpen })
                         }}
                         currencyFromIcon={this.state.currencyFromIcon}
@@ -223,11 +232,18 @@ class InputGroup extends React.Component {
                         isFromCurrencyFormOpen={this.state.isFromCurrencyFormOpen}
                         onChange={(event) => {
                             let target = event.target as HTMLInputElement
-                            let value = parseInt(target.value, 10)
+                            if(target.value != ""){
+                            let value = parseFloat(target.value)
                             this.setState({ amountFrom: value }, () => {
                                 this.updateCurrencyRate()
                                 this.setExchangedAmount()
                             })
+                        } else { 
+                            this.setState({ amountFrom: 0 }, () => {
+                                this.updateCurrencyRate()
+                                this.setExchangedAmount()
+                            })
+                        }
                         }}
                         onClick={(currency, form) => {
                             this.setCurrencyAndIconState(currency, form)
@@ -248,10 +264,6 @@ class InputGroup extends React.Component {
 
 class Input extends React.Component {
     props: InputProps = this.props
-    onChange = this.props.onChange
-    onClick = this.props.onClick
-    currencyFromIcon = this.props.currencyFromIcon
-    currencyToIcon = this.props.currencyToIcon
     btcIconUrl = bitcoin
     ethIconUrl = ethereum
     dollarIconUrl = dollar
@@ -271,7 +283,7 @@ class Input extends React.Component {
             <>
                 <div>
                     <div className={style({ display: "flex", flexDirection: "row", justifyContent: "center" })}>
-                        <input className="form-control" placeholder="From" onChange={this.onChange}
+                        <input className="form-control" placeholder="From" onChange={this.props.onChange}
                         />
                         <button
                             className="btn btn-outline-secondary"
@@ -282,15 +294,15 @@ class Input extends React.Component {
                     </div>
                     {this.props.isFromCurrencyFormOpen &&
                         <div className={style({ display: "flex", flexDirection: "row", justifyContent: "space-evenly", marginBottom: "12px" })}>
-                            <div ><img onClick={() => this.onClick("BTC", "from")} style={{ height: "24px" }} src={this.btcIconUrl} alt="" /></div>
-                            <div ><img onClick={() => this.onClick("ETH", "from")} style={{ height: "24px" }} src={this.ethIconUrl} alt="" /></div>
-                            <div ><img onClick={() => this.onClick("USD", "from")} style={{ height: "24px" }} src={this.dollarIconUrl} alt="" /></div>
+                            <div ><img onClick={() => this.props.onClick("BTC", "from")} style={{ height: "24px" }} src={this.btcIconUrl} alt="" /></div>
+                            <div ><img onClick={() => this.props.onClick("ETH", "from")} style={{ height: "24px" }} src={this.ethIconUrl} alt="" /></div>
+                            <div ><img onClick={() => this.props.onClick("USD", "from")} style={{ height: "24px" }} src={this.dollarIconUrl} alt="" /></div>
                         </div>
                     }
 
                     <div>
                         <div className={style({ display: "flex", flexDirection: "row", justifyContent: "center" })}>
-                            <input className="form-control" placeholder={`${this.props.placeholder}` === "0"?"To":`${this.props.placeholder}`}/>
+                            <input className="form-control" placeholder={`${this.props.placeholder}` === "0" ? "To" : `${this.props.placeholder}`} />
                             <button
                                 className="btn btn-outline-secondary"
                                 onClick={this.props.setToFormState}
@@ -300,9 +312,9 @@ class Input extends React.Component {
                         </div>
                         {this.props.isToCurrencyFormOpen &&
                             <div className={style({ display: "flex", flexDirection: "row", justifyContent: "space-evenly", marginBottom: "12px" })}>
-                                <div ><img onClick={() => this.onClick("BTC", "to")} style={{ height: "24px" }} src={this.btcIconUrl} alt="" /></div>
-                                <div ><img onClick={() => this.onClick("ETH", "to")} style={{ height: "24px" }} src={this.ethIconUrl} alt="" /></div>
-                                <div ><img onClick={() => this.onClick("USD", "to")} style={{ height: "24px" }} src={this.dollarIconUrl} alt="" /></div>
+                                <div ><img onClick={() => this.props.onClick("BTC", "to")} style={{ height: "24px" }} src={this.btcIconUrl} alt="" /></div>
+                                <div ><img onClick={() => this.props.onClick("ETH", "to")} style={{ height: "24px" }} src={this.ethIconUrl} alt="" /></div>
+                                <div ><img onClick={() => this.props.onClick("USD", "to")} style={{ height: "24px" }} src={this.dollarIconUrl} alt="" /></div>
                             </div>
                         }
 
