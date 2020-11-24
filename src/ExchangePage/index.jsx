@@ -6,14 +6,15 @@ import { style } from 'typestyle';
 
 export class ExchangePage extends React.Component {
     render() {
-        const portfolio = this.props.portfolio
+
         return (
             <div className={style({
-                width: "500px"
+                width: "500px",
+                marginTop: "50%",
+                height: "100%",
             })}>
-                <ChangePageButton />
-                <ExchangeBlock portfolio={portfolio} />
-                <ChartBlock portfolio={portfolio} />
+                <ChartBlock />
+                <ExchangeBlock />
             </div>
         )
     }

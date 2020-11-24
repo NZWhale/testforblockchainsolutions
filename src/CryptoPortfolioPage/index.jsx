@@ -6,8 +6,6 @@ import {ChangePageButton} from "../ChangePageButton"
 
 export class PortfolioPage extends React.Component {
     render() {
-        const props = this.props
-        const portfolio = props.portfolio
         return (
             <div className={style({
                 width: "500px",
@@ -17,8 +15,8 @@ export class PortfolioPage extends React.Component {
                 alignItems: "center",
                 height: "100%",
             })}>
-                <Portfolio portfolio={portfolio} />
-                <PieChartBlock portfolio={portfolio} />
+                <Portfolio  />
+                {/* <PieChartBlock portfolio={portfolio} state={this.state}/> */}
             </div>
         )
     }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { style } from "typestyle";
 import getInstance, { PortfolioState } from "../PortfolioState";
+import { PieChartBlock } from "./PieChartBlock"
 
 export default class Portfolio extends React.Component {
     portfolioInstance: PortfolioState = getInstance()
@@ -17,6 +18,7 @@ export default class Portfolio extends React.Component {
                     }
                 }
             })}>
+                <PieChartBlock/>
                 <CurrencyBlock currency={"BTC"} amount={this.portfolioInstance.getAmount("BTC")} portfolioInstance={this.portfolioInstance} />
                 <CurrencyBlock currency={"ETH"} amount={this.portfolioInstance.getAmount("ETH")} portfolioInstance={this.portfolioInstance} />
                 <CurrencyBlock currency={"USD"} amount={this.portfolioInstance.getAmount("USD")} portfolioInstance={this.portfolioInstance} />
@@ -24,12 +26,6 @@ export default class Portfolio extends React.Component {
 
         )
     }
-
-}
-const onTopUp = () => {
-
-}
-const onWithdraw = () => {
 
 }
 
@@ -48,13 +44,11 @@ const Button = ({ onClick, label, buttonType }: ButtonProps) => (
 
 interface CurrencyBlockProps {
     currency: Currency;
-    amount: number | undefined;
+    amount: number;
     portfolioInstance: PortfolioState
-    // onTopUp: (amount: number) => void;
-    // onWithdraw: (amount: number) => void;
 }
 
-const returnIcon = (currency: Currency) => {
+ const returnIcon = (currency: Currency) => {
     if (currency === "BTC") return btcIconUrl
     if (currency === "ETH") return ethIconUrl
     if (currency === "USD") return dollarIconUrl
@@ -64,12 +58,12 @@ const ethIconUrl = "src/images/ethereum.png"
 const dollarIconUrl = "src/images/262280.svg"
 
 const addNewAmount = (currency: Currency, amount: string, portfolioInstance: PortfolioState) => {
-    if (currency === "BTC") portfolioInstance.addBtcAmmount(parseInt(amount, 10))
+    if (currency === "BTC") portfolioInstance.addBtcAmount(parseInt(amount, 10))
     if (currency === "ETH") portfolioInstance.addEthAmount(parseInt(amount, 10))
     if (currency === "USD") portfolioInstance.addUsdAmount(parseInt(amount, 10))
 }
 const minusAmount = (currency: Currency, amount: string, portfolioInstance: PortfolioState) => {
-    if (currency === "BTC") portfolioInstance.minusBtcAmmount(parseInt(amount, 10))
+    if (currency === "BTC") portfolioInstance.minusBtcAmount(parseInt(amount, 10))
     if (currency === "ETH") portfolioInstance.minusEthAmount(parseInt(amount, 10))
     if (currency === "USD") portfolioInstance.minusUsdAmount(parseInt(amount, 10))
 }

@@ -4,6 +4,8 @@ import { render } from 'react-dom'
 import "bootstrap/dist/css/bootstrap.css";
 import { PortfolioPage } from "./CryptoPortfolioPage/index"
 import { ExchangePage } from "./ExchangePage/index"
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 
 
 
@@ -16,8 +18,18 @@ class App extends React.Component {
     render() {
         return (
             <>
-                {/* <ExchangePage portfolio={portfolio}/> */}
-                <PortfolioPage portfolio={portfolio}/>
+                <Tabs>
+                    <TabList>
+                        <Tab>Portfolio</Tab>
+                        <Tab>Exchange</Tab>
+                    </TabList>
+                    <TabPanel>
+                        <PortfolioPage />
+                    </TabPanel>
+                    <TabPanel>
+                        <ExchangePage />
+                    </TabPanel>
+                </Tabs>
             </>
         )
     }
