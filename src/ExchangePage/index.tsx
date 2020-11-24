@@ -10,7 +10,6 @@ export class ExchangePage extends React.Component {
         return (
             <div className={style({
                 width: "500px",
-                marginTop: "50%",
                 height: "100%",
             })}>
                 <ChartBlock />

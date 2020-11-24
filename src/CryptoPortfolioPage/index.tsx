@@ -1,8 +1,8 @@
 import React from 'react';
 import Portfolio from "./CurrencyBlock"
-import { PieChartBlock } from "./PieChartBlock"
-import {ChangePageButton} from "../ChangePageButton"
- import {style} from "typestyle"
+import {style} from "typestyle"
+import { TotalAmount } from "./TotalAmount"
+
 
 export class PortfolioPage extends React.Component {
     render() {
@@ -16,8 +16,8 @@ export class PortfolioPage extends React.Component {
                 height: "100%",
             })}>
                 <Portfolio  />
-                {/* <PieChartBlock portfolio={portfolio} state={this.state}/> */}
             </div>
         )
     }
 }
+

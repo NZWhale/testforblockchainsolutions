@@ -7,7 +7,8 @@ export class PortfolioState {
     private ethPrice: number = 0
     constructor() {
         this.setBtcPrice()
-        this.setEthPrice()
+        .then(() => this.setEthPrice())
+        .then(() => this.setTotalAmount())
     }
     addBtcAmount(btcAmount: number) {
         this.BTC += btcAmount
@@ -48,8 +49,8 @@ export class PortfolioState {
             console.log(this.USD)
         }
     }
-    setTotalAmount(btcPrice: number, ethPrice: number) {
-        this.total = (this.BTC * btcPrice) + (this.ETH * ethPrice) + this.USD
+    setTotalAmount() {
+        this.total = (this.BTC * this.btcPrice) + (this.ETH * this.ethPrice) + this.USD
     }
     async setBtcPrice() {
         const resp = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd").then(response => response.json())

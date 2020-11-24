@@ -2,6 +2,7 @@ import React from 'react';
 import { style } from "typestyle";
 import getInstance, { PortfolioState } from "../PortfolioState";
 import { PieChartBlock } from "./PieChartBlock"
+import { TotalAmount } from './TotalAmount';
 
 export default class Portfolio extends React.Component {
     portfolioInstance: PortfolioState = getInstance()
@@ -18,7 +19,8 @@ export default class Portfolio extends React.Component {
                     }
                 }
             })}>
-                <PieChartBlock/>
+                <TotalAmount />
+                <PieChartBlock />
                 <CurrencyBlock currency={"BTC"} amount={this.portfolioInstance.getAmount("BTC")} portfolioInstance={this.portfolioInstance} />
                 <CurrencyBlock currency={"ETH"} amount={this.portfolioInstance.getAmount("ETH")} portfolioInstance={this.portfolioInstance} />
                 <CurrencyBlock currency={"USD"} amount={this.portfolioInstance.getAmount("USD")} portfolioInstance={this.portfolioInstance} />
