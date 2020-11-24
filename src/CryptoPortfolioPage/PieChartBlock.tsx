@@ -32,8 +32,7 @@ export class PieChartBlock extends PureComponent {
 }
 
     componentDidMount() {
-    this.setDataValues();
-    // this.interval = setInterval(this.setDataValues, 10000);
+    this.setDataValues()
     }
 
     componentWillMount() {
