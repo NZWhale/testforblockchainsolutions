@@ -28,7 +28,7 @@ export class PieChartBlock extends PureComponent {
                 "value": this.portfolioInstance.getCurrencyInUsd("USD")
             }
         ]
-    })}), 2500)
+    })}), 2000)
 }
 
     componentDidMount() {
